@@ -1,16 +1,13 @@
 module.exports = {
-    transformer: {
-      getTransformOptions: async () => ({
-        transform: {
-          experimentalImportSupport: false,
-          inlineRequires: false,
-        },
-      }),
-    },
-    resolver: {
-      extraNodeModules: {
-        'react-native-config': require.resolve('react-native-config'),
-      },
-    },
-  };
-  
+  resolver: {
+    assetExts: ['jpg', 'png', 'jpeg', 'ttf', 'otf'],
+  },
+  transformer: {
+    assetPlugins: ['react-native-svg-asset-plugin'],
+    enableBabelRCLookup: false,
+  },
+  serializer: {
+    enableExperimentalImportSupport: true,
+    enableSegmentSplitting: true,
+  },
+};

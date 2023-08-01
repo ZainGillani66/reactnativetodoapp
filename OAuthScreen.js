@@ -319,13 +319,16 @@
 // export default OAuthScreen;
 
 
+
+
+
+
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator, Button } from 'react-native';
+import { View, ActivityIndicator, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import MainAppScreen from './MainAppScreen';
-
 
 const OAuthScreen = () => {
   const navigation = useNavigation();
@@ -334,7 +337,6 @@ const OAuthScreen = () => {
     clientId: '20683120727-c2077cnt279jihraf7gm0p76rhceealh.apps.googleusercontent.com',
     scopes: ['https://www.googleapis.com/auth/tasks'],
   };
-
 
   const discovery = {
     authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
@@ -345,16 +347,13 @@ const OAuthScreen = () => {
     {
       clientId: oauthConfig.clientId,
       scopes: oauthConfig.scopes,
-     
-      redirectUri: makeRedirectUri({ native: 'http://localhost:19006' }),
+      redirectUri: makeRedirectUri({ native: 'https://8d7b-182-185-150-29.ngrok-free.app' }),
     },
     discovery
   );
 
-
   useEffect(() => {
     if (response?.type === 'success') {
-      
       const { code } = response.params;
       handleTokenExchange(code);
       console.log('ZAAINN', code);
@@ -369,12 +368,12 @@ const OAuthScreen = () => {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: `grant_type=authorization_code&code=${code}&redirect_uri=${makeRedirectUri({
-          native: 'http://localhost:19006',
+          native: 'https://8d7b-182-185-150-29.ngrok-free.app',
         })}&client_id=${oauthConfig.clientId}`,
       });
 
       const data = await response.json();
-      console.log('ZAIN',data);
+      console.log('ZAIN', data);
       const accessToken = data.access_token;
       WebBrowser.dismissBrowser();
 
@@ -385,22 +384,41 @@ const OAuthScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <ActivityIndicator animating={!response} />
       {!response && (
-        <Button
-          disabled={!request}
-          title="Login with Google"
-          onPress={() => {
-            promptAsync();
-          }}
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            disabled={!request}
+            title="Login with Google"
+            onPress={() => {
+              promptAsync();
+            }}
+          />
+        </View>
       )}
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    width: '80%',
+    marginBottom: 20,
+  },
+});
+
 export default OAuthScreen;
+
+
+
+
+
 
 
 
@@ -442,41 +460,41 @@ export default OAuthScreen;
 //     }
 //   };
 
-  // const openBrowserAsync = async () => {
-  //   try {
-  //     const authUrl = `${oauthConfig.authorizationEndpoint}?response_type=code&client_id=${oauthConfig.clientId}&redirect_uri=${oauthConfig.redirectUri}&scope=${oauthConfig.scopes}`;
-  //     const result = await WebBrowser.openAuthSessionAsync(authUrl);
-  //     console.log("Zainnnnnnnn", result);
-  //     alert('Zainnnn');
-  //     // return false;
+//   const openBrowserAsync = async () => {
+//     try {
+//       const authUrl = `${oauthConfig.authorizationEndpoint}?response_type=code&client_id=${oauthConfig.clientId}&redirect_uri=${oauthConfig.redirectUri}&scope=${oauthConfig.scopes}`;
+//       const result = await WebBrowser.openAuthSessionAsync(authUrl);
+//       console.log("Zainnnnnnnn", result);
+//       alert('Zainnnn');
+//       // return false;
       
-  //     if (result.type === 'success' && result.url) {
+//       if (result.type === 'success' && result.url) {
         
-  //       const urlParams = result.url.split('?')[1];
-  //       const code = new URLSearchParams(urlParams).get('code');
-  //       if (code) {
-  //         handleTokenExchange(code);
-  //       } else {
-  //         console.log('Authorization Code Not Found');
-  //       }
-  //     } else if (result.type === 'cancel') {
+//         const urlParams = result.url.split('?')[1];
+//         const code = new URLSearchParams(urlParams).get('code');
+//         if (code) {
+//           handleTokenExchange(code);
+//         } else {
+//           console.log('Authorization Code Not Found');
+//         }
+//       } else if (result.type === 'cancel') {
        
-  //       console.log('User Cancelled the Login Process');
-  //     } else if (result.type === 'dismiss') {
+//         console.log('User Cancelled the Login Process');
+//       } else if (result.type === 'dismiss') {
       
-  //       console.log('User Dismissed the Web Authentication Flow');
-  //     } else {
+//         console.log('User Dismissed the Web Authentication Flow');
+//       } else {
     
-  //       console.log('Error during web authentication:', result);
-  //     }
-  //   } catch (error) {
-  //     console.log('WebBrowser Error:', error);
-  //   }
-  // };
+//         console.log('Error during web authentication:', result);
+//       }
+//     } catch (error) {
+//       console.log('WebBrowser Error:', error);
+//     }
+//   };
 
-  // useEffect(() => {
-  //   openBrowserAsync();
-  // }, []);
+//   useEffect(() => {
+//     openBrowserAsync();
+//   }, []);
   
 
 //   return (
