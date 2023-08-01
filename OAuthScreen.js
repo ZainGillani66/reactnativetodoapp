@@ -347,7 +347,7 @@ const OAuthScreen = () => {
     {
       clientId: oauthConfig.clientId,
       scopes: oauthConfig.scopes,
-      redirectUri: makeRedirectUri({ native: 'https://8d7b-182-185-150-29.ngrok-free.app' }),
+      redirectUri: makeRedirectUri({ native: 'https://file-management-system-a72f4.web.app' }),
     },
     discovery
   );
@@ -368,7 +368,7 @@ const OAuthScreen = () => {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: `grant_type=authorization_code&code=${code}&redirect_uri=${makeRedirectUri({
-          native: 'https://8d7b-182-185-150-29.ngrok-free.app',
+          native: 'https://file-management-system-a72f4.web.app',
         })}&client_id=${oauthConfig.clientId}`,
       });
 
