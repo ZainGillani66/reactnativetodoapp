@@ -1,9 +1,13 @@
 {
   "name": "frontend",
+  "homepage": "https://ZainGillani66.github.io/reactnativetodoapp",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "expo start",
+    "build": "expo build",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -24,6 +28,7 @@
     "expo-linking": "^5.0.2",
     "expo-status-bar": "~1.4.4",
     "expo-web-browser": "^12.3.2",
+    "gh-pages": "^5.0.0",
     "googleapis": "^122.0.0",
     "link": "^1.5.1",
     "parse": "^4.1.0",
